@@ -81,31 +81,19 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "../index.js");
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/index.js");
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "../index.js":
-/*!*******************!*\
-  !*** ../index.js ***!
-  \*******************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _shope_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./shope.js */ \"../shope.js\");\n/* harmony import */ var _shope_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_shope_js__WEBPACK_IMPORTED_MODULE_0__);\nconsole.log('Ok');\r\n\r\n\r\n/*import {Product} from './product.js';\r\nimport {Client} from './client.js';\r\nimport {Purchase} from './purchase.js';\r\n\r\nlet client01 = new Client(1, 'Mary', 'Smit');\r\nlet client02 = new Client(2, 'Bob', 'Adams');\r\n\r\n// -----------------------(id, name,    type, cost, amount)--------\r\nlet product01 = new Product(1, 'apple', 'fruit', 20, 100),\r\n    product02 = new Product(2, 'carrot', 'vegetables', 5, 200),\r\n    product03 = new Product(3, 'porridge', 'cereals', 25, 50);\r\n\r\nlet shop = new Shop();\r\n\r\n// Добавление клиентов\r\nshop.addClients(client01);\r\nshop.addClients(client02);\r\n\r\n// Добавление товара\r\nshop.addProducts(product01);\r\nshop.addProducts(product02);\r\nshop.addProducts(product03);\r\n\r\nconsole.log(' - Products -');\r\nconsole.log(shop.listProducts);\r\n\r\n// console.log(' - Clients -');\r\n// console.log(shop.listClients);\r\n\r\n// Удаление киента\r\n// shop.delClients(client01);\r\n\r\n// Удаление продукта\r\n// shop.delProducts(product02);\r\n\r\n// Продажа товара клиенту\r\n// shop.sellProduct(product01, 07/02/2020, 10);\r\n// console.log(shop);\r\n*/\n\n//# sourceURL=webpack:///../index.js?");
-
-/***/ }),
-
-/***/ "../shope.js":
-/*!*******************!*\
-  !*** ../shope.js ***!
-  \*******************/
+/***/ "./src/index.js":
+/*!**********************!*\
+  !*** ./src/index.js ***!
+  \**********************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("throw new Error(\"Module parse failed: Unexpected token (8:15)\\nYou may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders\\n|     }\\n|     \\n>     addClients = function(client) {\\n|         listClients.push(client);\\n|     }\");\n\n//# sourceURL=webpack:///../shope.js?");
+eval("console.log('Ok'); //import { Shop } from \"./shope.js\";\n\n/*import {Product} from './product.js';\r\nimport {Client} from './client.js';\r\nimport {Purchase} from './purchase.js';\r\n\r\nlet client01 = new Client(1, 'Mary', 'Smit');\r\nlet client02 = new Client(2, 'Bob', 'Adams');\r\n\r\n// -----------------------(id, name,    type, cost, amount)--------\r\nlet product01 = new Product(1, 'apple', 'fruit', 20, 100),\r\n    product02 = new Product(2, 'carrot', 'vegetables', 5, 200),\r\n    product03 = new Product(3, 'porridge', 'cereals', 25, 50);\r\n\r\nlet shop = new Shop();\r\n\r\n// Добавление клиентов\r\nshop.addClients(client01);\r\nshop.addClients(client02);\r\n\r\n// Добавление товара\r\nshop.addProducts(product01);\r\nshop.addProducts(product02);\r\nshop.addProducts(product03);\r\n\r\nconsole.log(' - Products -');\r\nconsole.log(shop.listProducts);\r\n\r\n// console.log(' - Clients -');\r\n// console.log(shop.listClients);\r\n\r\n// Удаление киента\r\n// shop.delClients(client01);\r\n\r\n// Удаление продукта\r\n// shop.delProducts(product02);\r\n\r\n// Продажа товара клиенту\r\n// shop.sellProduct(product01, 07/02/2020, 10);\r\n// console.log(shop);\r\n*/\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 

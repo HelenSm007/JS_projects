@@ -1,15 +1,17 @@
 {
-  "name": "webpack-4-tutorial",
+  "name": "webpack-4",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development ../index.js  --output ../main.js",
-    "build": "webpack --mode production ../index.js  --output ../main.js"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
   },
-  "author": "",
+  "author": "Helen Smyrnova",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.6",
     "babel-preset-env": "^1.7.0",
