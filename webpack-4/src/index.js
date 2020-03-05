@@ -1,9 +1,9 @@
-console.log('Ok');
+// console.log('Ok');
 
 import { Shop } from "./shope.js";
-/*import {Product} from './product.js';
+import {Product} from './product.js';
 import {Client} from './client.js';
-import {Purchase} from './purchase.js';
+
 
 let client01 = new Client(1, 'Mary', 'Smit');
 let client02 = new Client(2, 'Bob', 'Adams');
@@ -24,8 +24,8 @@ shop.addProducts(product01);
 shop.addProducts(product02);
 shop.addProducts(product03);
 
-console.log(' - Products -');
-console.log(shop.listProducts);
+console.log(' - Shope -');
+console.log(shop);
 
 // console.log(' - Clients -');
 // console.log(shop.listClients);
@@ -38,5 +38,5 @@ console.log(shop.listProducts);
 
 // Продажа товара клиенту
 // shop.sellProduct(product01, 07/02/2020, 10);
-// console.log(shop);
-*/
+console.log('********* After sell **********');
+console.log(shop);

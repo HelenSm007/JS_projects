@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch запросы</title>
+    <style>
+        .correct-answer{
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <button> get-request </button>
+    <section class="tests">
+
+    </section>
+
+    <script>
+        // https://votesystem.mobius.team/api/tests
+        /*fetch('https://votesystem.mobius.team/api/tests')  
+            .then(  
+                function(response) {  
+                if (response.status !== 200) {  
+                    alert('Looks like there was a problem. Status Code: ' +  
+                    response.status);  
+                    return;  
+                }
+
+                // Examine the text in the response  
+                response.json().then(function(data) {  
+                    console.log(data);  
+                });  
+                }  
+            )  
+            .catch(function(err) {  
+                alert('Fetch Error :-S', err);  
+        });*/
+        
+        async function getTests () {
+            let response = await fetch('https://votesystem.mobius.team/api/tests'); //возвращает объект с заголовками ответа типа Promise
+            
+            if (response.ok) { // если HTTP-статус в диапазоне 200-299
+                // получаем тело ответа
+                let result = await response.json();
+                console.log(result);// читает тело ответа в формате JSON
+                alert(result.message);
+                showTests(result);
+            } else {
+                alert("Ошибка HTTP: " + response.status);
+            }
+        };
+        
+        function showTests(jsonObj){
+            var tests = jsonObj['tests'];
+            
+            for (let test of tests){
+                // console.log(test);
+                let myArticle = document.createElement('article'),
+                    testH2 = document.createElement('h2'),
+                    testQuestion = document.createElement('h3'),
+                    optionsList = document.createElement('ul');
+                
+                testH2.textContent = test.label;
+                testQuestion.textContent = test.text;
+
+                for (let item of test.conditions){
+                    listItem = document.createElement('li');
+                    listItem.textContent = item.text;
+                    if ( item.is_correct ) {
+                        listItem.classList.add('correct-answer');
+                    }
+                    optionsList.appendChild(listItem);
+                }
+
+                //Добавление тегов с информацией в html
+                myArticle.appendChild(testH2);
+                myArticle.appendChild(testQuestion);
+                myArticle.appendChild(optionsList);
+               document.querySelector('section').appendChild(myArticle);
+
+            }
+        };
+        getTests();
+    </script>
+</body>
+</html>
