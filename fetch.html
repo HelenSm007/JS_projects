@@ -9,15 +9,50 @@
             font-weight: bold;
             color: green;
         }
+
     </style>
 </head>
 <body>
-    <button> get-request </button>
-    <section class="tests">
-
-    </section>
+    <button class="get-result"> Get Result </button>
+    <section class="test-result"></section>
+    <section class="tests"> </section>
 
     <script>
+        let button = document.querySelector('button.get-result');
+
+        button.addEventListener('click', () => {
+            //GET-запрос по ссылке https://votesystem.mobius.team/api/result/{USER_ID}
+            getResultTestById (40);
+        });
+
+        async function getResultTestById (userId) {
+            let response = await fetch('https://votesystem.mobius.team/api/result/' + userId);
+            
+            if (response.ok) { // если HTTP-статус в диапазоне 200-299
+                // получаем тело ответа
+                let result = await response.json();
+                console.log(result);// читает тело ответа в формате JSON
+                alert(result.message);
+                showResultById(result);
+            } else {
+                alert("Ошибка HTTP: " + response.status);
+            }
+        };
+
+        let showResultById = (jsonObj) => {
+            var user = jsonObj['user'];
+    
+            let nameUser = document.createElement('h2'),
+                resultUser= document.createElement('p'),
+                section = document.querySelector('.test-result');
+                
+            nameUser.textContent = user.name;
+            resultUser.textContent = 'Результат: ' + user.result + '%';
+
+            section.appendChild(nameUser);
+            section.appendChild(resultUser);
+        };
+
         // https://votesystem.mobius.team/api/tests
         /*fetch('https://votesystem.mobius.team/api/tests')  
             .then(  
@@ -43,8 +78,8 @@
             
             if (response.ok) { // если HTTP-статус в диапазоне 200-299
                 // получаем тело ответа
-                let result = await response.json();
-                console.log(result);// читает тело ответа в формате JSON
+                let result = await response.json();// читает тело ответа в формате JSON
+                // console.log(result);
                 alert(result.message);
                 showTests(result);
             } else {
@@ -60,7 +95,8 @@
                 let myArticle = document.createElement('article'),
                     testH2 = document.createElement('h2'),
                     testQuestion = document.createElement('h3'),
-                    optionsList = document.createElement('ul');
+                    optionsList = document.createElement('ul'),
+                    sectionTests = document.querySelector('.tests');
                 
                 testH2.textContent = test.label;
                 testQuestion.textContent = test.text;
@@ -78,7 +114,8 @@
                 myArticle.appendChild(testH2);
                 myArticle.appendChild(testQuestion);
                 myArticle.appendChild(optionsList);
-               document.querySelector('section').appendChild(myArticle);
+                
+                sectionTests.appendChild(myArticle);
 
             }
         };
