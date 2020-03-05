@@ -14,16 +14,51 @@
 </head>
 <body>
     <button class="get-result"> Get Result </button>
+    <button class="get-token"> Get Token </button>
     <section class="test-result"></section>
     <section class="tests"> </section>
 
     <script>
-        let button = document.querySelector('button.get-result');
+        let buttonRes = document.querySelector('button.get-result'),
+            buttonToken = document.querySelector('button.get-token');
 
-        button.addEventListener('click', () => {
+        buttonRes.addEventListener('click', () => {
             //GET-запрос по ссылке https://votesystem.mobius.team/api/result/{USER_ID}
             getResultTestById (40);
         });
+
+        buttonToken.addEventListener('click', () => {
+            //GET-запрос по ссылке https://votesystem.mobius.team/api/result/{USER_ID}/token
+            getToken (4000);
+        });
+
+        let getToken = (userId) => {
+            fetch(`https://votesystem.mobius.team/api/result/${userId}/token`)
+                .then(response => response.json())
+                    .then(result => {
+                        alert(result.message);
+                        console.log(result);
+                        return result.token;
+                        // console.log(token);
+                    })
+                    .then( token => {
+                        let formData = new FormData();
+                        formData.set('token', token);
+                        formData.set('homework_done', true);
+                        
+                       fetch(`https://votesystem.mobius.team/api/homework/update`, {
+                            method: 'POST',
+                            body: formData
+                        })
+                        // let result = resp.json();
+                        // alert(result.message);
+                        // console.log(res);
+
+                    })
+                    .catch((error) => {  
+                        alert('Request failed', error);  
+                    });
+        };
 
         async function getResultTestById (userId) {
             let response = await fetch('https://votesystem.mobius.team/api/result/' + userId);
@@ -31,7 +66,7 @@
             if (response.ok) { // если HTTP-статус в диапазоне 200-299
                 // получаем тело ответа
                 let result = await response.json();
-                console.log(result);// читает тело ответа в формате JSON
+                // console.log(result);// читает тело ответа в формате JSON
                 alert(result.message);
                 showResultById(result);
             } else {
@@ -53,26 +88,6 @@
             section.appendChild(resultUser);
         };
 
-        // https://votesystem.mobius.team/api/tests
-        /*fetch('https://votesystem.mobius.team/api/tests')  
-            .then(  
-                function(response) {  
-                if (response.status !== 200) {  
-                    alert('Looks like there was a problem. Status Code: ' +  
-                    response.status);  
-                    return;  
-                }
-
-                // Examine the text in the response  
-                response.json().then(function(data) {  
-                    console.log(data);  
-                });  
-                }  
-            )  
-            .catch(function(err) {  
-                alert('Fetch Error :-S', err);  
-        });*/
-        
         async function getTests () {
             let response = await fetch('https://votesystem.mobius.team/api/tests'); //возвращает объект с заголовками ответа типа Promise
             
