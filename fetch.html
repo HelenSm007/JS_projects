@@ -14,26 +14,93 @@
 </head>
 <body>
     <button class="get-result"> Get Result </button>
-    <button class="get-token"> Get Token </button>
+    <button class="get-pass"> Get Password </button>
     <section class="test-result"></section>
     <section class="tests"> </section>
 
     <script>
         let buttonRes = document.querySelector('button.get-result'),
-            buttonToken = document.querySelector('button.get-token');
-
+            buttonPass = document.querySelector('button.get-pass');
+        //вывод результата теста
         buttonRes.addEventListener('click', () => {
             //GET-запрос по ссылке https://votesystem.mobius.team/api/result/{USER_ID}
-            getResultTestById (40);
+          //  getResultTestById (40);
+          try{
+            (async () => {
+                let request = generateRequest();
+                for await (let value of request ){
+                    value;
+                }
+            })();
+            // request.next().value;
+            // request.throw(new Error("Error!!!"));
+
+          } catch (error) {
+            alert(error.message);
+          }
         });
 
-        buttonToken.addEventListener('click', () => {
-            //GET-запрос по ссылке https://votesystem.mobius.team/api/result/{USER_ID}/token
-            getToken (40);
+        /* получение password */
+        buttonPass.addEventListener('click', () => {
+            let lengthPass = prompt('Какой длины пароль?', 0);
+            getPass(lengthPass);
         });
+
+        const url = 'https://votesystem.mobius.team';
+        
+        //********* Async Generator ************
+        
+        async function* generateRequest() {
+            yield getTests();
+            yield getResultTestById (40);
+            yield getToken (40);
+        }
+        // ************************
+
+        // ***** Генерация пароля******
+
+        function randomInteger(min, max) {
+            // случайное число от min до (max+1)
+            let rand
+            do {
+                rand =  Math.floor(min + Math.random() * (max + 1 - min));
+
+            } while ((rand > 57 && rand < 65) || (rand > 90 && rand < 97));
+
+            return rand;
+        }
+
+        function* generatePasswordCodes(length) {
+            for (let i = 0; i < length; i++) {
+                yield randomInteger(48, 122);
+            }
+            /*
+        // 0..9
+        yield* generateSequence(48, 57);
+
+        // A..Z
+        yield* generateSequence(65, 90);
+
+        // a..z
+        yield* generateSequence(97, 122);
+        */
+        }
+
+        function getPass(length){
+            let str = '';
+
+            for(let code of generatePasswordCodes(length)) {
+            console.log (code);
+            str += String.fromCharCode(code);
+            }
+
+            alert(str); // 0..9A..Za..z
+        }
+
+        // *********************************
 
         let getToken = (userId) => {
-            fetch(`https://votesystem.mobius.team/api/result/${userId}/token`)
+            fetch(`${url}/api/result/${userId}/token`)
                 .then(response => response.json())
                     .then(result => {
                         alert(result.message);
@@ -46,13 +113,10 @@
                         formData.set('token', token);
                         formData.set('homework_done', true);
                         
-                       fetch(`https://votesystem.mobius.team/api/homework/update`, {
+                       fetch(`${url}/api/homework/update`, {
                             method: 'POST',
                             body: formData
                         })
-                        // let result = resp.json();
-                        // alert(result.message);
-                        // console.log(res);
 
                     })
                     .catch((error) => {  
@@ -61,7 +125,7 @@
         };
 
         async function getResultTestById (userId) {
-            let response = await fetch('https://votesystem.mobius.team/api/result/' + userId);
+            let response = await fetch(url + '/api/result/' + userId);
             
             if (response.ok) { // если HTTP-статус в диапазоне 200-299
                 // получаем тело ответа
@@ -89,7 +153,7 @@
         };
 
         async function getTests () {
-            let response = await fetch('https://votesystem.mobius.team/api/tests'); //возвращает объект с заголовками ответа типа Promise
+            let response = await fetch(url + '/api/tests'); //возвращает объект с заголовками ответа типа Promise
             
             if (response.ok) { // если HTTP-статус в диапазоне 200-299
                 // получаем тело ответа
@@ -134,7 +198,7 @@
 
             }
         };
-        getTests();
+       // getTests();
     </script>
 </body>
 </html>
